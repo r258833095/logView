@@ -62,7 +62,7 @@
         [self addSubview:txtView];
         
         [[NSNotificationCenter defaultCenter]
-         addObserver:self selector:@selector(viewControl:) name:@"loginView" object:nil];
+         addObserver:self selector:@selector(viewControl:) name:@"logView" object:nil];
         
         [self setAlpha:0];
         
