@@ -25,13 +25,24 @@
         [self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.75]];
         
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-        [btn setBackgroundColor:[UIColor whiteColor]];
+        [btn setBackgroundColor:[UIColor grayColor]];
         [btn setTitle:@"x" forState:UIControlStateNormal];
         [btn setContentMode:UIViewContentModeCenter];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         [btn setSelected:YES];
         [self addSubview:btn];
+        
+        UIButton *cleanBtn = [[UIButton alloc]initWithFrame:CGRectMake(255-45, 0, 45, 30)];
+        [cleanBtn setBackgroundColor:[UIColor grayColor]];
+        [cleanBtn setTitle:@"clean" forState:UIControlStateNormal];
+        [cleanBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [cleanBtn setContentMode:UIViewContentModeCenter];
+        [cleanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cleanBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [cleanBtn addTarget:self action:@selector(cleanAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:cleanBtn];
         
         UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 30)];
         lbl.textAlignment = NSTextAlignmentCenter;
@@ -59,22 +70,27 @@
     return self;
 }
 
+
 #pragma mark - btn Action
 - (void)btnAction:(UIButton*)sender{
     
     sender.selected =! sender.selected;
     
     if (sender.selected) {
-        [sender setBackgroundColor:[UIColor whiteColor]];
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 255, 150);
         txtView.hidden = NO;
     }else{
-        [sender setBackgroundColor:[UIColor grayColor]];
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 255, 30);
         txtView.hidden = YES;
     }
 }
 
+
+- (void)cleanAction{
+    
+    [txtView setText:@"All Output :"];
+
+}
 #pragma mark - notification
 - (void)viewControl:(NSNotification*)notification{
     
@@ -87,6 +103,8 @@
             txtView.text = [txtView.text stringByAppendingFormat:@"\n\n%@",[notification object]];
         }
     }];
+    
+   
     
 }
 
